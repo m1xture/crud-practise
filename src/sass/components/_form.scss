@@ -1,0 +1,70 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #00000070;
+  transition: all 250ms 50ms;
+}
+.modal {
+  background-color: rgb(237, 242, 247);
+  border-radius: 14px;
+  width: 27vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+}
+.modal__title {
+  text-align: center;
+  color: rgb(22, 25, 44);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 136.02%;
+  margin-bottom: 25px;
+}
+.form {
+  background-color: #fff;
+  border-radius: 14px;
+  padding: 7px;
+  & div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
+.form__input {
+  background-color: rgb(237, 242, 247);
+  border-radius: 14px;
+  width: 90%;
+  height: 46px;
+  padding: 4px;
+  border: none;
+  outline: none;
+  margin-bottom: 10px;
+  &:last-of-type {
+    margin-left: 5%;
+  }
+}
+.form__input:last-of-type,
+.form__input:nth-of-type(3) {
+  width: 40%;
+}
+.form__btn {
+  display: block;
+  text-align: center;
+  background: rgb(76, 111, 255);
+  border-radius: 6px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 12px;
+  padding: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}

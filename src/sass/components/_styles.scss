@@ -1,0 +1,94 @@
+.main__title {
+  display: block;
+  text-align: center;
+  margin-bottom: 90px;
+}
+.add-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 102px;
+  text-wrap: balance;
+  padding: 12px 20px 12px 20px;
+  border-radius: 6px;
+  background-color: rgb(76, 111, 255);
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 12px;
+  position: absolute;
+  top: 22px;
+  right: 19vw;
+}
+.movies {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+.movies__item {
+  width: 350px;
+  overflow: hidden;
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 14px;
+  position: relative;
+  transition: all 250ms 75ms;
+  &:hover {
+    transform: scale(1.02);
+  }
+  &:hover .controls {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+.movies__title {
+  color: rgb(39, 39, 46);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 136.02%;
+}
+.movies__text {
+  color: rgb(66, 84, 102);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 23px;
+}
+.movies__description {
+  color: rgb(66, 84, 102);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 23px;
+}
+.controls {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 75px;
+  background-color: rgb(237, 242, 247);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  transition: opacity 300ms 75ms;
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      transform: scale(1);
+    }
+  }
+}
+.delete-btn:hover,
+.delete-btn:focus {
+  fill: rgb(239, 100, 100);
+}
+.edit-btn:hover,
+.edit-btn:focus {
+  fill: #ffc94a;
+}

@@ -1,15 +1,78 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
-    <link rel="stylesheet" href="./sass/index.scss" />
-    <script type="module" src="./index.js"></script>
+    <title>CRUD</title>
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css"
+      rel="stylesheet"
+      integrity="sha512-4xo8blKMVCiXpTaLzQSLSw3KFOVPWhm/TRtuPVc4WG6kUgjH6J03IBuG7JZPkcWMxJ5huwaBpOpnwYElP/m6wg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link href="./sass/index.scss" rel="stylesheet" />
+    <link href="./images/favicon.png" type="image/x-icon" rel="shortcut icon" />
+    <script src="./index.js" type="module" async></script>
   </head>
   <body>
-    <h1>Example title</h1>
-    <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <include src="./partials/example.html"></include>
+    <div class="container">
+      <h1 class="main__title">Movies🎬</h1>
+
+      <button class="add-btn" type="button" data-add>Add movie</button>
+      <ul class="movies">
+        <button class="controls__btn edit-btn" type="button">
+          <svg width="24" height="24">
+            <use href="./images/symbol-defs.svg#edit" data-edit-img></use>
+          </svg></button
+        ><button class="controls__btn delete-btn" type="button">
+          <svg width="24" height="24">
+            <use href="./images/symbol-defs.svg#delete" data-delete-img></use>
+          </svg>
+        </button>
+      </ul>
+    </div>
+    <div class="overlay is-hidden">
+      <div class="modal">
+        <h2 class="modal__title">Add your own movie</h2>
+        <form class="form" data-add-form>
+          <div>
+            <input
+              class="form__input"
+              name="title"
+              placeholder="Movie title"
+              type="text"
+              autocomplete="off"
+            /><input
+              class="form__input"
+              name="director"
+              placeholder="Directed by..."
+              type="text"
+              autocomplete="off"
+            /><input
+              class="form__input"
+              name="genre"
+              placeholder="Movie genre"
+              type="text"
+              autocomplete="off"
+            /><input
+              class="form__input"
+              name="year"
+              placeholder="Movie release year"
+              type="text"
+              autocomplete="off"
+            />
+          </div>
+          <button class="form__btn" type="submit">Add movie🎞</button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>

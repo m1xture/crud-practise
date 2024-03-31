@@ -1,0 +1,47 @@
+@import '~node_modules/modern-normalize/modern-normalize.css';
+body {
+  font-family: 'Inter';
+  padding-top: 20px;
+  background-color: rgb(237, 242, 247);
+}
+button {
+  transition-duration: 250ms;
+  transition-delay: 50ms;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+.container {
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+
+  @media screen and (min-width: 375px) {
+    width: 375px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 768px;
+    padding-right: 32px;
+    padding-left: 32px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 1200px;
+    padding-right: 32px;
+    padding-left: 32px;
+  }
+  @media screen and (min-width: 1600px) {
+    width: 1600px;
+    padding-right: 38px;
+    padding-left: 38px;
+  }
+}
+.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
