@@ -68,20 +68,26 @@ document
       const resp = await postNewMovie(formData);
       if (resp) {
         toggleForm();
-        renderData();
+        renderData(imgUrls);
       }
     }
   });
 
 async function deleteMovie(id) {
   try {
-    await fetch(`http://localhost:3000/movies?id=${Number(id)}`, {
+    await fetch(`http://localhost:3000/movies/${Number(id)}`, {
       method: 'DELETE',
     });
     return await true;
   } catch (err) {
     console.log(err);
   }
+}
+
+async function editMovie(id) {
+  toggleForm();
+  const response = await fetch(`http://localhost:3000/movies?id=${Number(id)}`);
+  const data = await response.json();
 }
 
 document.querySelector('.movies').addEventListener('click', async e => {
@@ -91,20 +97,27 @@ document.querySelector('.movies').addEventListener('click', async e => {
     e.target.nodeName === 'use'
   ) {
     let cardId = 0;
+    let buttonEl;
     if (e.target.nodeName === 'BUTTON') {
-      if (e.target.classList.contains('delete-btn')) {
-        cardId = e.target.parentNode.parentNode.dataset.id;
-      }
+      buttonEl = e.target;
+      cardId = e.target.parentNode.parentNode.dataset.id;
     }
     if (e.target.nodeName === 'svg') {
+      buttonEl = e.target.parentNode;
       cardId = e.target.parentNode.parentNode.parentNode.dataset.id;
     }
     if (e.target.nodeName === 'use') {
+      buttonEl = e.target.parentNode.parentNode;
       cardId = e.target.parentNode.parentNode.parentNode.parentNode.dataset.id;
     }
-    const status = await deleteMovie(cardId);
+    let status = false;
+    if (buttonEl.classList.contains('delete-btn')) {
+      status = await deleteMovie(cardId);
+    } else {
+      status;
+    }
     if (status) {
-      renderData();
+      renderData(imgUrls);
     }
   }
 });
