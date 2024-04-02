@@ -48,30 +48,70 @@ async function postNewMovie(obj) {
   }
 }
 
-document
-  .querySelector('[data-add-form]')
-  .addEventListener('submit', async e => {
-    e.preventDefault();
-    const id = await getNewId();
-    const formData = {
-      id: id,
+async function editMovie(editedMovie, method) {
+  try {
+    const options = {
+      method: method,
+      body: JSON.stringify(editedMovie),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    };
+    await fetch(
+      `http://localhost:3000/movies/${Number(editedMovie.id)}`,
+      options
+    );
+    return true;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+document.querySelector('form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const movieId = e.target.getAttribute('currentId');
+  if (e.target.hasAttribute('data-edit-movie')) {
+    const response = await fetch(
+      `http://localhost:3000/movies?id=${Number(movieId)}`
+    );
+    const movieDB = await response.json();
+    const editedMovie = {
+      id: Number(movieId),
       title: e.target.title.value,
       genre: e.target.genre.value,
       director: e.target.director.value,
       year: e.target.year.value,
     };
-    let errors = 0;
-    Object.values(formData).forEach(elem => {
-      if (!!!elem) errors++;
-    });
-    if (errors === 0) {
-      const resp = await postNewMovie(formData);
-      if (resp) {
-        toggleForm();
-        renderData(imgUrls);
-      }
-    }
+    const similarity = Object.keys(movieDB).every(
+      key => movieDB[key] !== editedMovie[key]
+    );
+    const method = similarity ? 'PUT' : 'PATCH';
+    (await editMovie(editedMovie, method))
+      ? toggleForm()
+      : console.log('error');
+    renderData(imgUrls);
+    return;
+  }
+  const id = await getNewId();
+  const formData = {
+    id: id,
+    title: e.target.title.value,
+    genre: e.target.genre.value,
+    director: e.target.director.value,
+    year: e.target.year.value,
+  };
+  let errors = 0;
+  Object.values(formData).forEach(elem => {
+    if (!!!elem) errors++;
   });
+  if (errors === 0) {
+    const resp = await postNewMovie(formData);
+    if (resp) {
+      toggleForm();
+      renderData(imgUrls);
+    }
+  }
+});
 
 async function deleteMovie(id) {
   try {
@@ -84,10 +124,17 @@ async function deleteMovie(id) {
   }
 }
 
-async function editMovie(id) {
+async function preEditMovie(id) {
   toggleForm();
   const response = await fetch(`http://localhost:3000/movies?id=${Number(id)}`);
-  const data = await response.json();
+  const [movie] = await response.json();
+  const form = document.querySelector('form');
+  form.title.value = movie.title;
+  form.year.value = movie.year;
+  form.director.value = movie.director;
+  form.genre.value = movie.genre;
+  form.setAttribute('data-edit-movie', '');
+  form.setAttribute('currentId', movie.id);
 }
 
 document.querySelector('.movies').addEventListener('click', async e => {
@@ -114,7 +161,7 @@ document.querySelector('.movies').addEventListener('click', async e => {
     if (buttonEl.classList.contains('delete-btn')) {
       status = await deleteMovie(cardId);
     } else {
-      status;
+      status = await preEditMovie(cardId);
     }
     if (status) {
       renderData(imgUrls);
