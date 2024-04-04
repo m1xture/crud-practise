@@ -15,7 +15,10 @@ function toggleForm() {
   refs.overlayEl.classList.toggle('is-hidden');
 }
 
-refs.addBtnEl.addEventListener('click', toggleForm);
+refs.addBtnEl.addEventListener('click', e => {
+  document.querySelector('form').removeAttribute('data-edit-movie');
+  toggleForm();
+});
 refs.overlayEl.addEventListener('click', e => {
   if (e.target.classList.contains('overlay')) {
     toggleForm();
@@ -26,6 +29,7 @@ async function getNewId() {
   try {
     const response = await fetch('http://localhost:3000/movies');
     const data = await response.json();
+    console.log(await data);
     return (await data.length) + 1;
   } catch (err) {
     console.log(err);
@@ -90,8 +94,12 @@ document.querySelector('form').addEventListener('submit', async e => {
       ? toggleForm()
       : console.log('error');
     renderData(imgUrls);
+    e.target.reset();
     return;
   }
+
+  //? post
+
   const id = await getNewId();
   const formData = {
     id: id,
@@ -111,6 +119,7 @@ document.querySelector('form').addEventListener('submit', async e => {
       renderData(imgUrls);
     }
   }
+  e.target.reset();
 });
 
 async function deleteMovie(id) {
